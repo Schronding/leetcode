@@ -1,0 +1,41 @@
+# Test cases
+word_0 = "xyxzxe"
+ch_0 = "z"
+# Expected output: "zxyxxe"
+
+word_1 = "abcdefd"
+ch_1 = "d"
+# Expected output: "dcbaefd"
+
+word_2 = "abcd"
+ch_2 = "z"
+# Expected output: "abcd"
+
+word_3 = "a"
+ch_3 = "a"
+# Expected output: "a"
+
+class Solution:
+    def reversePrefix(word: str, ch: str) -> str:
+        for index in range(len(word)):
+            if word[index] == ch:
+                return word[index:: -1] + word[index + 1:] 
+                # In this 'return' statement, what I am telling python to is:
+                #   To the left of "+": "create a new substring that starts at 'index', but instead of going forward, go backwards until you reach the end ...
+                #   ... of the string". Recall that the syntax for string slicing is [start:stop:index]. 
+                #   To the right of "+": "create a new substring that starts at 'index' + 1, and go forward all the way until the end of the string". 
+                ## But what if 'index' + 1 was out of bounds? It seems that python handles this case for us, and instead of raising an 'IndexError' it ...
+                ## ... simply returns an empty string. 
+                ### If you are wondering why I left the "stop cell" in our left word empty, is because that tells python that it should go all the way up ...
+                ### ... to the very last character of my slicing of 'word'. 
+                ### As the "step cell" is -1, it is going backwards all the way up to the start of the string. 
+                ### You could replace in the "stop cell" with '-len(word) - index' but while that works on most cases, it isn't when the string 'word' and ...
+                ### ... the character 'ch' are exactly the same, such as with 'word_3' & 'ch_3'. 
+        return word
+        # In case 'ch' was never found inside 'word' we simply return 'word' as it is. 
+    
+    print(reversePrefix(word_0, ch_0))
+    print(reversePrefix(word_1, ch_1))
+    print(reversePrefix(word_2, ch_2))
+    print(reversePrefix(word_3, ch_3))
+    
