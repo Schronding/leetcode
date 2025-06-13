@@ -44,7 +44,7 @@ def merge(nums1, m, nums2, n):
         if one_pointer > -1:
             value_one = nums1[one_pointer]
         else:
-            value_one = 0
+            value_one = -1000
         if nums2[two_pointer] >= value_one:
             nums1[change] = nums2[two_pointer]
             change -= 1
